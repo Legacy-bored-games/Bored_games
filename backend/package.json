@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "A web app that buddies you up with people near you who wish to play the same board games as you",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SHA-Team4/bored-games.git"
+  },
+  "keywords": [
+    "MERN",
+    "board",
+    "games",
+    "green",
+    "field"
+  ],
+  "author": "Margarita Marmaridou, Feyami Caglayan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SHA-Team4/bored-games/issues"
+  },
+  "homepage": "https://github.com/SHA-Team4/bored-games#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
