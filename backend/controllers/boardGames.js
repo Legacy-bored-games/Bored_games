@@ -1,84 +1,84 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import boredGameModel from '../models/boredGameModel.js';
+import boardGameModel from '../models/boardGameModel';
 
 const router = express.Router();
 
-//* GET all boredGames
-export const getBoredGames = async (req, res) => {
+//* GET all boardGames
+export const getBoardGames = async (req, res) => {
     try {
       
-        //*get all boredGames and sort by name
-        const boredGames = await boredGameModel.find().sort({ name: -1 })
+        //*get all boardGames and sort by name
+        const boardGames = await boardGameModel.find().sort({ name: -1 })
 
-        res.json({ data: boredGames});
+        res.json({ data: boardGames});
     } catch (error) {    
         res.status(404).json({ message: error.message });
     }
 }
-//* GET boredGame by specific value
-export const getBoredGamesBySearch = async (req, res) => {
+//* GET boardGame by specific value
+export const getBoardGamesBySearch = async (req, res) => {
     const { searchQuery, tags } = req.query;
 
     try {
         const title = new RegExp(searchQuery, "i");
 
-        const boredGames = await boredGameModel.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+        const boardGames = await boardGameModel.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
 
-        res.json({ data: boredGames });
+        res.json({ data: boardGames });
     } catch (error) {    
         res.status(404).json({ message: error.message });
     }
 }
-//* GET boredGame by id
-export const getBoredGame = async (req, res) => { 
+//* GET boardGame by id
+export const getBoardGame = async (req, res) => { 
     const { id } = req.params;
 
     try {
-        const boredGame = await boredGameModel.findById(id);
+        const boardGame = await boardGameModel.findById(id);
         
-        res.status(200).json(boredGame);
+        res.status(200).json(boardGame);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
 }
-//* create boredGame
-export const createBoredGame = async (req, res) => {
+//* create boardGame
+export const createBoardGame = async (req, res) => {
      
 
-    const newBoredGame = new boredGameModel(req.body)
+    const newBoardGame = new boardGameModel(req.body)
 
     try {
-        await newBoredGame.save();
+        await newBoardGame.save();
 
-        res.status(201).json(newBoredGame);
+        res.status(201).json(newBoardGame);
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
 }
-//* update boredGame
-export const updateBoredGame = async (req, res) => {
+//* update boardGame
+export const updateBoardGame = async (req, res) => {
     const { id } = req.params;
     const { name, category, minPlayer, maxPlayer, description } = req.body;
     
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No BoredGame with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No BoardGame with id: ${id}`);
 
-    const updatedBoredGame = { name, category, minPlayer, maxPlayer, description, _id: id };
+    const updatedBoardGame = { name, category, minPlayer, maxPlayer, description, _id: id };
 
-    await boredGameModel.findByIdAndUpdate(id, updatedBoredGame, { new: true });
+    await boardGameModel.findByIdAndUpdate(id, updatedBoardGame, { new: true });
 
-    res.json(updatedBoredGame);
+    res.json(updatedBoardGame);
 }
-//* delete boredGame
-export const deleteBoredGame = async (req, res) => {
+//* delete boardGame
+export const deleteBoardGame = async (req, res) => {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No BoredGame with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No BoardGame with id: ${id}`);
 
-    await boredGameModel.findByIdAndRemove(id);
+    await boardGameModel.findByIdAndRemove(id);
 
-    res.json({ message: "BoredGame deleted successfully." });
+    res.json({ message: "BoardGame deleted successfully." });
 }
 
 export default router;
