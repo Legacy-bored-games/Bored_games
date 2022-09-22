@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledHome = styled.div`
-    /* width:60%; */
+    margin-top: -5em;
     display: flex;
     flex-direction: column;
     align-items: center;
