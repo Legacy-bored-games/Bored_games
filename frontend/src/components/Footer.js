@@ -1,10 +1,13 @@
+//Styling using styled components
+import { StyledFooter } from "./styles/Footer.styled"
+
 function Footer() {
     return (
-        <div>
+        <StyledFooter>
             <h1>
                 Footer
             </h1>
-        </div>
+        </StyledFooter>
     )
 }
 
