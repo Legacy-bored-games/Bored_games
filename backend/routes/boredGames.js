@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getBoredGames,  getBoredGamesBySearch, getBoredGame, createBoredGame, updateBoredGame, deleteBoredGame } from '../controllers/boredGames.js';
+import { getBoredGames,  getBoredGamesBySearch, getBoredGame, createBoredGame, updateBoredGame, deleteBoredGame } from '../controllers/boardGames.js';
 
 const router = express.Router();
 import auth from "../middleware/auth.js";
