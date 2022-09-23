@@ -6,6 +6,8 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     align-items: center;
     padding: 0 1em;
+    height:6.5em;
+    
 
     h1 {
         font-family: 'Rubik Dirt';

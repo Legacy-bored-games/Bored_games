@@ -1,10 +1,16 @@
+//React Components
+import Form from "./NewEventForm";
+//Styled Components
+import { StyledHostEvent } from "../styles/HostEventPage.styled";
+
 function HostEvent() {
     return(
-        <div className="host-event">
+        <StyledHostEvent>
             <h1>
-                Host new board game session
+                Host a Board Game session
             </h1>
-        </div>
+            <Form />
+        </StyledHostEvent>
     )
 }
 

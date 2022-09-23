@@ -1,10 +1,21 @@
-//Styling using styled components
+import React from "react";
+
+//React Components
+import DropdownMenu from "./DropdownMenu";
+
+//Styled components
 import { StyledHeader } from "./styles/Header.styled";
 
 //ReactRouter
 import { NavLink } from "react-router-dom";
 
 function Header() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  function toggleMenu() {
+    setIsOpen((prevIsOpen) => !prevIsOpen);
+  }
+
   return (
     <StyledHeader>
       <h1>
@@ -36,16 +47,29 @@ function Header() {
           </NavLink>
         </p>
         <p>
-        <NavLink
+          <NavLink
             to="/session/host-new"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            Host a board  <br />
+            Host a board <br />
             game session
           </NavLink>
         </p>
+        {/* User icon */}
+        <i
+          class="fa-solid fa-user"
+          style={{
+            fontSize: "1.3em",
+            background: "none",
+            border: ".1em solid black",
+            borderRadius: "3em",
+            padding: ".5em",
+            cursor: "pointer",
+          }}
+          onClick={toggleMenu}
+        ></i>
+        {isOpen && <DropdownMenu />}
       </nav>
-      <p>User Icon</p>
     </StyledHeader>
   );
 }

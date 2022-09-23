@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Homepage/Home";
 import About from "./components/About/About";
-import Signup from "./components/Signup/SignupForm";
+import SignUp from "./components/Signup/SignupForm";
 import Login from "./components/Login/LoginForm";
 import SearchPage from "./components/SearchPage/SearchPage";
 import Event from "./components/EventPage/Event";
@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/about" element={<About />}/>
-        <Route path="/signup" element ={<Signup />}/>
+        <Route path="/signup" element ={<SignUp />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/session">
           {/* Nested Routes */}
