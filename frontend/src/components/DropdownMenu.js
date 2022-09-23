@@ -7,15 +7,17 @@ import { StyledDropdownMenu, StyledList, StyledListItem } from "./styles/Dropdow
 import { NavLink } from "react-router-dom";
 
 function DropdownMenu(items, multiSelect = false) {
-    const [isOpen, setIsOpen] = React.useState(false);
 
-    function toggleMenu() {
-        setIsOpen(prevIsOpen => !prevIsOpen)
-    };
+    //Close menu when menu item is clicked
+    // const [isOpen, setIsOpen] = React.useState(false);
 
-    function closeMenu() {
-        setIsOpen(false)
-    };
+    // function toggleMenu() {
+    //     setIsOpen(prevIsOpen => !prevIsOpen)
+    // };
+
+    // function closeMenu() {
+    //     setIsOpen(false)
+    // };
 
     return (
         <StyledDropdownMenu>
@@ -23,7 +25,6 @@ function DropdownMenu(items, multiSelect = false) {
                 <NavLink
                     to="/signup"
                     style={{ textDecoration: "none", color: "inherit" }}
-                    onClick={closeMenu}
                 >
                     <StyledListItem>
                         Sign up
@@ -32,7 +33,6 @@ function DropdownMenu(items, multiSelect = false) {
                 <NavLink
                     to="/login"
                     style={{ textDecoration: "none", color: "inherit" }}
-                    onClick={closeMenu}
                 >
                     <StyledListItem>
                         Login
@@ -41,7 +41,6 @@ function DropdownMenu(items, multiSelect = false) {
                 <NavLink
                     to="/session/host-new"
                     style={{ textDecoration: "none", color: "inherit" }}
-                    onClick={closeMenu}
                 >
                     <StyledListItem>
                         Host board game session
