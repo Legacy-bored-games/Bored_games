@@ -1,5 +1,5 @@
 //Google Maps component
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
+// import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 const API = process.env.REACT_APP_API_KEY;
 

@@ -2,18 +2,26 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes from './routes/auth.js';
+
+import bodyParser from 'body-parser';
+import userRoutes from './routes/user.js';
+
 
 const app = express();
 dotenv.config();
 app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
  
  
 
-app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 const PORT = process.env.PORT|| 5000;
 
 mongoose.connect(process.env.MD_CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })

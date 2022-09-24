@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const BoardGameSchema = new mongoose.Schema({
+const boardGameSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -22,4 +22,4 @@ const BoardGameSchema = new mongoose.Schema({
      
 });
 
-export default BoardGame = mongoose.model('boardGame', BoardGameSchema);
+export default mongoose.model('boardGame', boardGameSchema);
