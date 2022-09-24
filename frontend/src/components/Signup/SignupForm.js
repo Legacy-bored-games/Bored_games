@@ -1,27 +1,59 @@
+import * as React from "react";
+
+//React Components
+import SignUpInfo from "./SignupInfo";
+import PersonalInfo from "./PersonalInfo";
+
 //MUI Library
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 //ReactRouter
 import { NavLink } from "react-router-dom";
 
 //Styled Components
-import {StyledFormTitle, StyledButton}  from "../styles/SignupForm.styled";
+import { StyledFormTitle, StyledSubTitle, StyledButtonContainer,  StyledButton } from "../styles/SignupForm.styled";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  //Initialise state in parent component and pass it as props to children
+  const [formData, setFormData] = React.useState({
+    firstName:"",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    country: "",
+    city: "",
+    birthdate: "",
+    ID: "",
+    favBoardGame:"",
+    // favBoardGames: [], for multiple selection
+  })
+
+  //Create a 2-step sign up form
+  const [page, setPage] = React.useState(0);
+
+  const formStepTitle = ["Sign up Information", "Personal Information"];
+
+  function prevStep() {
+    setPage(currPage => currPage - 1)
+  }
+
+  function nextStep() {
+    setPage(currPage => currPage + 1)
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.get("email"),
+      password: data.get("password"),
     });
   };
 
@@ -32,78 +64,56 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <StyledFormTitle>
-            Sign up
-          </StyledFormTitle>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                
-              </Grid>
-            </Grid>
-            <StyledButton
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+          <StyledFormTitle>Sign up</StyledFormTitle>
+          <div>
+            
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
             >
-              Next
-            </StyledButton>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <NavLink to="/login" style={{ fontFamily:'Poppins', color: "tomato", fontSize:'.9em' }}>
-                  Already have an account? Sign in
-                </NavLink>
+              <StyledSubTitle>
+                <h1>Step {page + 1} - {formStepTitle[page]}</h1>
+              </StyledSubTitle>
+              {/* Conditionally render form based on which page we are on */}
+              {page === 0 ? <SignUpInfo formData={formData} setFormData={setFormData}/> : <PersonalInfo formData={formData} setFormData={setFormData}/>}
+              <StyledButtonContainer>
+                <StyledButton
+                  onClick={prevStep}
+                  disabled={page === 0}
+                >
+                  Previous
+                </StyledButton>
+                <StyledButton
+                  onClick={page === 0 ? nextStep : ""}
+                  type={page === 0 ? "button" : "submit"}
+                >
+                  {page===0 ? "Next": "Submit"}
+                </StyledButton>
+              </StyledButtonContainer>
+
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <NavLink
+                    to="/login"
+                    style={{
+                      fontFamily: "Poppins",
+                      color: "tomato",
+                      fontSize: ".9em",
+                    }}
+                  >
+                    Already have an account? Sign in
+                  </NavLink>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </div>
         </Box>
       </Container>
     </ThemeProvider>
