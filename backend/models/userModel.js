@@ -21,8 +21,32 @@ const userSchema = mongoose.Schema(
             type: String,
             required: [true, 'Password is required'],
         },
-
-
+        country: {
+            type: String,
+            required: true,
+        },
+        city: {
+            type: String,
+            required: true,
+        },
+        dateOfBirth: {
+            type: Date,
+            required: true,
+        },
+        validationId: {
+            type: String,
+            required: true,
+        },
+        favBoardGame: {
+            type: [String],
+        },
+        avatar: {
+            type: String,
+        },
+        isAdmin: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );
