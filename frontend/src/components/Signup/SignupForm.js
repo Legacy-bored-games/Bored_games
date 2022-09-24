@@ -4,6 +4,9 @@ import * as React from "react";
 import SignUpInfo from "./SignupInfo";
 import PersonalInfo from "./PersonalInfo";
 
+//API Calls
+import { UserApi } from "../../api/index";
+
 //MUI Library
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
@@ -12,7 +15,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 //ReactRouter
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 //Styled Components
 import { StyledFormTitle, StyledSubTitle, StyledButtonContainer,  StyledButton } from "../styles/SignupForm.styled";
@@ -20,6 +23,8 @@ import { StyledFormTitle, StyledSubTitle, StyledButtonContainer,  StyledButton }
 const theme = createTheme();
 
 export default function SignUp() {
+  let navigate = useNavigate(); //* for redirecting to another page.
+  
   //Initialise state in parent component and pass it as props to children
   const [formData, setFormData] = React.useState({
     firstName:"",
@@ -29,9 +34,9 @@ export default function SignUp() {
     confirmPassword: "",
     country: "",
     city: "",
-    birthdate: "",
-    ID: "",
-    favBoardGame:"",
+    dateOfBirth: "",
+    validationId: "",
+    favBoardGame:[],
     // favBoardGames: [], for multiple selection
   })
 
@@ -50,11 +55,8 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+   
+     
   };
 
   return (
@@ -91,7 +93,9 @@ export default function SignUp() {
                   Previous
                 </StyledButton>
                 <StyledButton
-                  onClick={page === 0 ? nextStep : ""}
+                  onClick={page === 0 ? nextStep : ()=>UserApi.signUp(formData).then(() => {
+                    navigate('/home' )
+                  })}
                   type={page === 0 ? "button" : "submit"}
                 >
                   {page===0 ? "Next": "Submit"}

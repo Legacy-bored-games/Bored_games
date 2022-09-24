@@ -102,12 +102,12 @@ export default function PersonalInfo({formData, setFormData}) {
         <TextField
           required
           fullWidth
-          id="birthdate"
+          id="dateOfBirth"
           type="Date"
-          name="birthdate"
-          value={formData.birthdate}
+          name="dateOfBirth"
+          value={formData.dateOfBirth}
           onChange={handleChange}
-          autoComplete="birthdate"
+          autoComplete="dateOfBirth"
         />
       </Grid>
       <Grid item xs={12}>
@@ -115,8 +115,8 @@ export default function PersonalInfo({formData, setFormData}) {
         <TextField
           required
           fullWidth
-          name="ID"
-          value={formData.ID}
+          name="validationId"
+          value={formData.validationId}
           onChange={handleChange}
           type="file"
           id="identification-doc"
