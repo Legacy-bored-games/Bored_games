@@ -3,8 +3,10 @@ import styled from "styled-components";
 export const StyledUserProfile = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     border: 2px solid black;
     padding: 3em;
+    gap:3em;
 
 `
 
@@ -13,6 +15,7 @@ export const StyledUserInfoContainer = styled.div `
     gap: 3em;
     border: 1px solid black;
     height: 7em;
+    margin-top: -1em;
 `
 
 export const StyledUserInfo = styled.div`
