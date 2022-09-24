@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import eventModel from '../models/eventModel.js';
+import {Event} from '../models/indexModel';
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 export const getEvents = async (req, res) => {
     try {
         //*get all events and sort by date
-        const events = await eventModel.find().sort({ when: -1 })
+        const events = await Event.find().sort({ when: -1 })
 
         res.json({ data: events });
     } catch (error) {
@@ -24,7 +24,7 @@ export const getEventsBySearch = async (req, res) => {
     try {
         const title = new RegExp(searchQuery, "i");
 
-        const events = await eventModel.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
+        const events = await Event.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
 
         res.json({ data: events });
     } catch (error) {
@@ -36,7 +36,7 @@ export const getEvent = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const event = await eventModel.findById(id);
+        const event = await Event.findById(id);
 
         res.status(200).json(event);
     } catch (error) {
@@ -48,7 +48,7 @@ export const getEvent = async (req, res) => {
 export const createEvent = async (req, res) => {
 
 
-    const newEvent = new eventModel(req.body)
+    const newEvent = new Event(req.body)
 
     try {
         await newEvent.save();
@@ -68,7 +68,7 @@ export const updateEvent = async (req, res) => {
 
     const updatedEvent = { name, category, minPlayer, maxPlayer, description, _id: id };
 
-    await eventModel.findByIdAndUpdate(id, updatedEvent, { new: true });
+    await Event.findByIdAndUpdate(id, updatedEvent, { new: true });
 
     res.json(updatedEvent);
 }
@@ -79,7 +79,7 @@ export const deleteEvent = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Event with id: ${id}`);
 
-    await eventModel.findByIdAndRemove(id);
+    await Event.findByIdAndRemove(id);
 
     res.json({ message: "Event deleted successfully." });
 }

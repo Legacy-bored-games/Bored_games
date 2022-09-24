@@ -1,83 +1,30 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcryptjs';
 import validator from 'validator';
-const UserSchema = new mongoose.Schema(
-    {
 
+const userSchema = mongoose.Schema(
+    {
         firstName: {
             type: String,
-            required: true,
+            required: [true, 'First Name is required'],
         },
         lastName: {
             type: String,
-            required: true,
+            required: [true, 'Last Name is required'],
         },
         email: {
             type: String,
-            required: [true, 'Email area is required'],
+            required: [true, 'Email is required'],
             unique: true,
             validate: [validator.isEmail, 'Valid email is required'],
         },
         password: {
             type: String,
-            required: true,
+            required: [true, 'Password is required'],
         },
-        validationId: {
-            type: String,
-            required: true,
-        },
-        token: {
-            type: String,
-            required: true,
-        },
-        dateOfBirth: {
-            type: Date,
-            required: true,
-        },
-        description: {
-            type: String,
-            
-        },
-        country: {
-            type: String,
-            required: true,
-        },
-        city: {
-            type: String,
-            required: true,
-        },
-        img: {
-            type: String,
-        },
-       
-        isAdmin: {
-            type: Boolean,
-            default: false,
-        },
+
+
     },
     { timestamps: true }
 );
-//?Look later for usage
-// UserSchema.methods = {
 
-//     matchPassword: function (password) {
-//         return bcrypt.compare(password, this.password);
-//     }
-
-// };
-
-// UserSchema.pre('save', function (next) {
-//     if (this.isModified('password')) {
-//         bcrypt.genSalt(saltRounds, (err, salt) => {
-//             bcrypt.hash(this.password, salt, (err, hash) => {
-//                 if (err) { next(err); return }
-//                 this.password = hash;
-//                 next();
-//             });
-//         });
-//         return;
-//     }
-//     next();
-// });
-
-export default mongoose.model("user", UserSchema);
+export default mongoose.model("user", userSchema);
