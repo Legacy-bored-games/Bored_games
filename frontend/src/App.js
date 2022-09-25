@@ -1,3 +1,5 @@
+import React from "react"
+
 //React Router
 import { Route, Routes } from "react-router-dom";
 //Components
@@ -16,6 +18,18 @@ import GlobalStyles from "./components/styles/Global";
 import { StyledApp } from "./components/styles/App.styled"
 
 function App() {
+  //Hardcoded state values - to be changed
+  const [event, setEvent] = React.useState({
+    eventId: "",
+    title:"Monopoly",
+    level:"Easy",
+    hostedBy:"Maria",
+    location:"Thessaloniki",
+    date:"22-09-2022",
+    leftSeats:6,
+    totalSeats:6
+})
+
   return (
     <StyledApp>
       <GlobalStyles />
@@ -27,8 +41,8 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/session">
           {/* Nested Routes */}
-          <Route path="search" element={<SearchPage />}/>
-          <Route path=":id" element={<Event />}/>
+          <Route path="search" element={<SearchPage event={event} setEvent = {setEvent}/>}/>
+          <Route path=":id" element={<Event event={event} setEvent = {setEvent}/>}/>
           <Route path="host-new" element={<HostEvent />}/>
         </Route>
         <Route path="/profile/:id" element={<UserProfile />}/>

@@ -1,19 +1,13 @@
 import React from "react"
 
+//ReactRouter
+import { NavLink } from "react-router-dom";
+
 //Styled Components
 import { StyledEventCard, StyledLocation, StyledButton } from "./styles/EventCard.styled";
 
-function EventCard() {
-    const [event, setEvent] = React.useState({
-        // eventId: useParams().id,
-        title:"Monopoly",
-        level:"Easy",
-        hostedBy:"Maria",
-        location:"Thessaloniki",
-        date:"22-09-2022",
-        leftSeats:6,
-        totalSeats:6
-    })
+function EventCard({event, setEvent}) {
+    
     return (
         <StyledEventCard>
             <h1>{event.title}</h1>
@@ -23,7 +17,11 @@ function EventCard() {
             </StyledLocation>
         
             <h3>{event.date}</h3>
-            <StyledButton>More</StyledButton>
+            {/* Need to figure out how to pass the event's id to Navlink */}
+            <NavLink to="session/:id">
+                <StyledButton>More</StyledButton>
+            </NavLink>
+            
         </StyledEventCard>
     )
 }

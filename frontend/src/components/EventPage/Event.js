@@ -8,17 +8,15 @@ import { StyledEvent, StyledBasicInfo, StyledAdditionalInfo, StyledBookSeat, Sty
 
 
 function Event({event, setEvent}) {
+    const eventId = useParams().id;
 
-    // const [event, setEvent] = React.useState({
-    //     eventId: useParams().id,
-    //     title:"Monopoly",
-    //     level:"Easy",
-    //     hostedBy:"Maria",
-    //     location:"Thessaloniki",
-    //     date:"22-09-2022",
-    //     leftSeats:6,
-    //     totalSeats:6
-    // })
+    //Update the event id
+    setEvent(prevEvent => {
+        return {
+            ...prevEvent,
+            eventId:eventId
+        };
+    });
 
     function bookSeat() {
         setEvent(prevEvent => {
