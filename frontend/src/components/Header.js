@@ -57,7 +57,7 @@ function Header() {
         </p>
         {/* User icon */}
         <i
-          class="fa-solid fa-user"
+          className="fa-solid fa-user"
           style={{
             fontSize: "1.3em",
             background: "none",
