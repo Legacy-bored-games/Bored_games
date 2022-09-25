@@ -6,20 +6,19 @@ import { useParams } from "react-router-dom";
 //Styled Components
 import { StyledEvent, StyledBasicInfo, StyledAdditionalInfo, StyledBookSeat, StyledButton } from "../styles/Event.styled"
 
-function Event() {
 
-    const [event, setEvent] = React.useState({
-        eventId: useParams().id,
-        title:"Monopoly",
-        level:"Easy",
-        hostedBy:"Maria",
-        location:"Thessaloniki",
-        date:"22-09-2022",
-        leftSeats:6,
-        totalSeats:6
-    })
+function Event({event, setEvent}) {
 
-    console.log(event)
+    // const [event, setEvent] = React.useState({
+    //     eventId: useParams().id,
+    //     title:"Monopoly",
+    //     level:"Easy",
+    //     hostedBy:"Maria",
+    //     location:"Thessaloniki",
+    //     date:"22-09-2022",
+    //     leftSeats:6,
+    //     totalSeats:6
+    // })
 
     function bookSeat() {
         setEvent(prevEvent => {
