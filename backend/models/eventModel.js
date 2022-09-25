@@ -10,7 +10,7 @@ const eventSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-    _boardGame: {
+    boardGame: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'boardGame'
     },
@@ -18,13 +18,13 @@ const eventSchema = mongoose.Schema({
         type: Number
     },
     levelOfDifficulties: {
-        type: Number
+        type: String
     },
     averageDuration: {
         type: String,
 
     },
-    _user: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },

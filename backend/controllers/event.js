@@ -8,7 +8,7 @@ const router = express.Router();
 export const getEvents = async (req, res) => {
     try {
         //*get all events and sort by date
-        const events = await EventModel.find().populate("_boardGame").populate("_user").sort({ when: -1 })
+        const events = await EventModel.find().populate("boardGame").populate("user").sort({ when: -1 })
 
         res.json({ data: events });
     } catch (error) {
@@ -35,7 +35,7 @@ export const getEvent = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const event = await EventModel.findById(id).populate("_boardGame").populate("_user");
+        const event = await EventModel.findById(id).populate("boardGame").populate("user");
 
         res.status(200).json(event);
     } catch (error) {
@@ -61,11 +61,11 @@ export const createEvent = async (req, res) => {
 //* update event
 export const updateEvent = async (req, res) => {
     const { id } = req.params;
-    const { where, when, _boardGame, howManyPlayers, levelOfDifficulties, averageDuration, _user } = req.body;
+    const { where, when, boardGame, howManyPlayers, levelOfDifficulties, averageDuration, user } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Event with id: ${id}`);
 
-    const updatedEvent = { where, when, _boardGame, howManyPlayers, levelOfDifficulties, averageDuration, _user, _id: id };
+    const updatedEvent = { where, when, boardGame, howManyPlayers, levelOfDifficulties, averageDuration, user, _id: id };
 
     await EventModel.findByIdAndUpdate(id, updatedEvent, { new: true });
 

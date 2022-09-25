@@ -39,14 +39,21 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 //Styled Components
 import { StyledTitle, StyledButton } from "../styles/HostEventPage.styled";
 
+//API Calls
+import { BoardGameApi, EventApi } from "../../api/index";
+
+import { useNavigate } from "react-router-dom";
 export default function Form() {
+  const navigate = useNavigate(); //* for redirecting to another page.
+  const [boardGamecs, setBoardGamecs] = React.useState([]);
   const [formData, setFormData] = React.useState({
-    city: "",
-    eventDate: "",
+    where: "",
+    when: "",
     boardGame: "",
-    numOfPlayers: 0,
-    level: "",
-    duration: 0,
+    howManyPlayers: 0,
+    levelOfDifficulties: "",
+    averageDuration: 0,
+    user:JSON.parse(localStorage.getItem('userId')).id,
   });
 
   //Handle change of multiple inputs
@@ -68,11 +75,25 @@ export default function Form() {
     );
   });
 
-  //Hardcoded board games - to be changed
-  const boardGame = ["Monopoly", "Munchkin", "Scrubble"].map((boardGame) => {
+ 
+//* for fill in the board game name and get the id from the API 
+  React.useEffect(() => {
+    //  BoardGameApi.getBoardGames().then(res =>setFormData((prevData) => {
+    //   return {
+    //     ...prevData,
+    //     boardGame: res.data,
+    //   };
+    // }))
+    BoardGameApi.getBoardGames().then(res =>setBoardGamecs(res.data))
+ },[]);
+
+   console.log({boardGamecs})
+      
+// const boardGame =Object.values(formData.boardGame).map((boardGame) => {
+  const boardGame =boardGamecs.map((boardGame) => {
     return (
-      <MenuItem key={boardGame} value={boardGame}>
-        {boardGame}
+      <MenuItem key={ boardGame._id}  value={ boardGame}>
+        { boardGame.name}
       </MenuItem>
     );
   });
@@ -122,9 +143,9 @@ export default function Form() {
                   <Select
                     required
                     labelId="demo-simple-select-label"
-                    id="city"
+                    id="where"
                     label="Where?"
-                    name="city"
+                    name="where"
                     value={formData.city}
                     onChange={handleChange}
                   >
@@ -139,7 +160,7 @@ export default function Form() {
                   fullWidth
                   id="eventDate"
                   type="Date"
-                  name="eventDate"
+                  name="when"
                   value={formData.eventDate}
                   onChange={handleChange}
                   autoComplete="eventDate"
@@ -169,7 +190,7 @@ export default function Form() {
                   fullWidth
                   id="numOfPlayers"
                   type="Number"
-                  name="numOfPlayers"
+                  name="howManyPlayers"
                   value={formData.numOfPlayers}
                   onChange={handleChange}
                   autoComplete="number of players"
@@ -185,7 +206,7 @@ export default function Form() {
                     labelId="demo-simple-select-label"
                     id="level"
                     label="Level of difficulty"
-                    name="level"
+                    name="levelOfDifficulties"
                     value={formData.level}
                     onChange={handleChange}
                   >
@@ -203,14 +224,16 @@ export default function Form() {
                     labelId="demo-simple-select-label"
                     id="duration"
                     label="Average duration of play (in minutes)"
-                    name="duration"
+                    name="averageDuration"
                     value={formData.duration}
                     onChange={handleChange}
                   >
                     {duration}
                   </Select>
                 </FormControl>
-                <StyledButton type="submit">Submit</StyledButton>
+                <StyledButton onClick={()=>EventApi.newEvent(formData).then(() => {
+                    navigate('/home' )
+                  })} type="submit">Submit</StyledButton>
               </Grid>
             </Grid>
           </Box>
