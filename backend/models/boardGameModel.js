@@ -7,17 +7,20 @@ const boardGameSchema = mongoose.Schema({
     },
     category: {
         type: String,
-        required: true
+        
     },
     minPlayer: {
         type: Number,
-        required: true
+       
     },
     maxPlayer: {
         type: Number
     },
     description: {
-        type: Number
+        type: String
+    },
+    image: {
+        type: String
     },
      
 });

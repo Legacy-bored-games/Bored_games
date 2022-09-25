@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 
 import bodyParser from 'body-parser';
 import userRoutes from './routes/user.js';
+import eventRoutes from './routes/event.js';
+import boardGameRoutes from './routes/boardGame.js';
 
 
 const app = express();
@@ -22,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
  
 
 app.use("/user", userRoutes);
+app.use("/event", eventRoutes);
+app.use("/boardgame", boardGameRoutes);
+
 const PORT = process.env.PORT|| 5000;
 
 mongoose.connect(process.env.MD_CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
 
 const eventSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
+   
     where: {
         type: String,
         required: true
@@ -12,6 +9,10 @@ const eventSchema = mongoose.Schema({
     when: {
         type: Date,
         required: true
+    },
+    _boardGame: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'boardGame'
     },
     howManyPlayers: {
         type: Number
@@ -27,10 +28,7 @@ const eventSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    _boardGame: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'boardGame'
-    },
+     
 });
 
 export default mongoose.model('event', eventSchema);
