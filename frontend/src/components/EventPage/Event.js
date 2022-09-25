@@ -7,20 +7,26 @@ import { useParams } from "react-router-dom";
 import { StyledEvent, StyledBasicInfo, StyledAdditionalInfo, StyledBookSeat, StyledButton } from "../styles/Event.styled"
 
 function Event() {
-    let { eventId } = useParams();
-    console.log(eventId);
 
-    const [seats, setSeats] = React.useState({
+    const [event, setEvent] = React.useState({
+        eventId: useParams().id,
+        title:"Monopoly",
+        level:"Easy",
+        hostedBy:"Maria",
+        location:"Thessaloniki",
+        date:"22-09-2022",
         leftSeats:6,
         totalSeats:6
     })
 
+    console.log(event)
+
     function bookSeat() {
-        setSeats(prevSeats => {
-            if(prevSeats.totalSeats >= prevSeats.leftSeats) {
+        setEvent(prevEvent => {
+            if(prevEvent.totalSeats >= prevEvent.leftSeats) {
                 return { 
-                    ...prevSeats,
-                    leftSeats:  prevSeats.leftSeats-1};
+                    ...prevEvent,
+                    leftSeats:  prevEvent.leftSeats-1};
             };
         });
     };
@@ -29,17 +35,17 @@ function Event() {
     return (
         <StyledEvent>
             <StyledBasicInfo>
-                <h1>Name of board game</h1>
-                <p>Level of difficulty</p>
+                <h1>{event.title}</h1>
+                <p>{event.level}</p>
             </StyledBasicInfo>
             <StyledAdditionalInfo>
-                <p>Hosted by user</p>
-                <h2>Location | Date</h2>
+                <p>Hosted by {event.hostedBy}</p>
+                <h2><i class="fa-solid fa-location-dot"></i> {event.location} | {event.date}</h2>
             </StyledAdditionalInfo>
             <StyledBookSeat>
-                <h3>Seats left : {seats.leftSeats} / {seats.totalSeats}</h3>
+                <h3>Seats left : {event.leftSeats} / {event.totalSeats}</h3>
                 <StyledButton 
-                    disabled={seats.leftSeats === 0 ? true : false}
+                    disabled={event.leftSeats === 0 ? true : false}
                     onClick={bookSeat}
                 >   Book
                 </StyledButton>
