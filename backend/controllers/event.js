@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-
-import {Event} from '../models/indexModel';
+import EventModel from "../models/eventModel.js";
 
 const router = express.Router();
 
@@ -9,7 +8,7 @@ const router = express.Router();
 export const getEvents = async (req, res) => {
     try {
         //*get all events and sort by date
-        const events = await Event.find().sort({ when: -1 })
+        const events = await EventModel.find().populate("_boardGame").populate("_user").sort({ when: -1 })
 
         res.json({ data: events });
     } catch (error) {
@@ -24,7 +23,7 @@ export const getEventsBySearch = async (req, res) => {
     try {
         const title = new RegExp(searchQuery, "i");
 
-        const events = await Event.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
+        const events = await EventModel.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] }).populate("_boardGame").populate("_user");
 
         res.json({ data: events });
     } catch (error) {
@@ -36,7 +35,7 @@ export const getEvent = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const event = await Event.findById(id);
+        const event = await EventModel.findById(id).populate("_boardGame").populate("_user");
 
         res.status(200).json(event);
     } catch (error) {
@@ -48,7 +47,7 @@ export const getEvent = async (req, res) => {
 export const createEvent = async (req, res) => {
 
 
-    const newEvent = new Event(req.body)
+    const newEvent = new EventModel(req.body)
 
     try {
         await newEvent.save();
@@ -62,13 +61,13 @@ export const createEvent = async (req, res) => {
 //* update event
 export const updateEvent = async (req, res) => {
     const { id } = req.params;
-    const { name, category, minPlayer, maxPlayer, description } = req.body;
+    const { where, when, _boardGame, howManyPlayers, levelOfDifficulties, averageDuration, _user } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Event with id: ${id}`);
 
-    const updatedEvent = { name, category, minPlayer, maxPlayer, description, _id: id };
+    const updatedEvent = { where, when, _boardGame, howManyPlayers, levelOfDifficulties, averageDuration, _user, _id: id };
 
-    await Event.findByIdAndUpdate(id, updatedEvent, { new: true });
+    await EventModel.findByIdAndUpdate(id, updatedEvent, { new: true });
 
     res.json(updatedEvent);
 }
@@ -79,7 +78,7 @@ export const deleteEvent = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Event with id: ${id}`);
 
-    await Event.findByIdAndRemove(id);
+    await EventModel.findByIdAndRemove(id);
 
     res.json({ message: "Event deleted successfully." });
 }

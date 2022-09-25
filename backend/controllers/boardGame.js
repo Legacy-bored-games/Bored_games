@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import {BoardGame} from '../models/indexModel';
+import BoardGameModel from "../models/boardGameModel.js";
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ export const getBoardGames = async (req, res) => {
     try {
       
         //*get all boardGames and sort by name
-        const boardGames = await BoardGame.find().sort({ name: -1 })
+        const boardGames = await BoardGameModel.find().sort({ name: -1 })
 
         res.json({ data: boardGames});
     } catch (error) {    
@@ -24,7 +24,7 @@ export const getBoardGamesBySearch = async (req, res) => {
     try {
         const title = new RegExp(searchQuery, "i");
 
-        const boardGames = await BoardGame.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+        const boardGames = await BoardGameModel.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
 
         res.json({ data: boardGames });
     } catch (error) {    
@@ -36,7 +36,7 @@ export const getBoardGame = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const boardGame = await BoardGame.findById(id);
+        const boardGame = await BoardGameModel.findById(id);
         
         res.status(200).json(boardGame);
     } catch (error) {
@@ -47,7 +47,7 @@ export const getBoardGame = async (req, res) => {
 export const createBoardGame = async (req, res) => {
      
 
-    const newBoardGame = new BoardGame(req.body)
+    const newBoardGame = new BoardGameModel(req.body)
 
     try {
         await newBoardGame.save();
@@ -60,13 +60,13 @@ export const createBoardGame = async (req, res) => {
 //* update boardGame
 export const updateBoardGame = async (req, res) => {
     const { id } = req.params;
-    const { name, category, minPlayer, maxPlayer, description } = req.body;
+    const { name, category, minPlayer, maxPlayer, description,image } = req.body;
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No BoardGame with id: ${id}`);
 
-    const updatedBoardGame = { name, category, minPlayer, maxPlayer, description, _id: id };
+    const updatedBoardGame = { name, category, minPlayer, maxPlayer, description, image, _id: id };
 
-    await BoardGame.findByIdAndUpdate(id, updatedBoardGame, { new: true });
+    await BoardGameModel.findByIdAndUpdate(id, updatedBoardGame, { new: true });
 
     res.json(updatedBoardGame);
 }
@@ -76,7 +76,7 @@ export const deleteBoardGame = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No BoardGame with id: ${id}`);
 
-    await BoardGame.findByIdAndRemove(id);
+    await BoardGameModel.findByIdAndRemove(id);
 
     res.json({ message: "BoardGame deleted successfully." });
 }
