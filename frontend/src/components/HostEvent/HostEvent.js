@@ -7,7 +7,7 @@ function HostEvent() {
     return(
         <StyledHostEvent>
             <h1>
-                Host a Board Game session
+                Host a Board Game Session
             </h1>
             <Form />
         </StyledHostEvent>
