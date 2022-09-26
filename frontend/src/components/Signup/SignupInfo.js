@@ -74,6 +74,7 @@ export default function SignUpInfo({formData, setFormData}) {
           fullWidth
           id="confirmPassword"
           label="Confirm Password"
+          type="password"
           name="confirmPassword"
           value={formData.confirmPassword}
           autoComplete="confirm-password"
