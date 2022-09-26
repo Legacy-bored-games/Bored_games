@@ -4,12 +4,19 @@ export const StyledSearchPage = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 3em;
 `;
 
 export const StyledSearchForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
+
+export const StyledEventContainer = styled.div` 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+`
 
 export const StyledButton = styled.button`
   width: 8em;
@@ -36,16 +43,14 @@ export const StyledMapContainer = styled.div`
   align-items: center;
   gap: 1em;
 
-  div {
+  /* div {
     width: 40em;
     height: 20em;
     border: 1px solid black;
     border-radius: 1em;
-  }
+  } */
 
-  a {
-    align-self: flex-end;
-  }
+  
 
   button {
     height: 3em;
