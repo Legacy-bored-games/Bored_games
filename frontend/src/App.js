@@ -19,16 +19,34 @@ import { StyledApp } from "./components/styles/App.styled"
 
 function App() {
   //Hardcoded state values - to be changed
-  const [event, setEvent] = React.useState({
+  const [event, setEvent] = React.useState([{
     eventId: "",
     title:"Monopoly",
     level:"Easy",
     hostedBy:"Maria",
     location:"Thessaloniki",
-    date:"22-09-2022",
-    leftSeats:6,
+    date:"29-09-2022",
+    leftSeats:0,
     totalSeats:6
-})
+},{
+  eventId: "",
+  title:"Monopoly",
+  level:"Hard",
+  hostedBy:"Maria",
+  location:"Athens",
+  date:"11-10-2022",
+  leftSeats:3,
+  totalSeats:6
+},{
+  eventId: "",
+  title:"Monopoly",
+  level:"Hard",
+  hostedBy:"Maria",
+  location:"Athens",
+  date:"24-10-2022",
+  leftSeats:5,
+  totalSeats:6
+}])
 
   return (
     <StyledApp>
@@ -43,9 +61,9 @@ function App() {
           {/* Nested Routes */}
           <Route path="search" element={<SearchPage event={event} setEvent = {setEvent}/>}/>
           <Route path=":id" element={<Event event={event} setEvent = {setEvent}/>}/>
-          <Route path="host-new" element={<HostEvent />}/>
+          <Route path="host-new" element={<HostEvent  />}/>
         </Route>
-        <Route path="/profile/:id" element={<UserProfile />}/>
+        <Route path="/profile/:id" element={<UserProfile event={event} setEvent = {setEvent} />}/>
       </Routes>
       <Footer />
     </StyledApp>

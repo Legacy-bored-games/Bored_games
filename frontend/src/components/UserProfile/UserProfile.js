@@ -16,8 +16,9 @@ import {
 
 //API Calls
 import { UserApi } from "../../api/index";
-
-function UserProfile() {
+//*Event Card
+import EventCard from "../EventCard";
+function UserProfile({event, setEvent}) {
   const [user, setUser] = React.useState({
     userId: useParams().id,
   });
@@ -78,9 +79,9 @@ function UserProfile() {
         <StyledUpcomingSessions>
           <h3>Upcoming Sessions</h3>
           <StyledEventCardContainer>
-            <p>Event 1</p>
-            <p>Event 2</p>
-            <p>Event 3</p>
+          <EventCard event={event[0]} setEvent={setEvent}></EventCard>
+          <EventCard event={event[1]} setEvent={setEvent}></EventCard>
+          <EventCard event={event[2]} setEvent={setEvent}></EventCard>
           </StyledEventCardContainer>
         </StyledUpcomingSessions>
       </StyledAdditionalInfoContainer>
