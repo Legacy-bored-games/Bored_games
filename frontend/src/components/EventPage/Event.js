@@ -44,7 +44,7 @@ setEvent((prevUser) => {
 
 
    
-
+//! add to update event participants
     function bookSeat() {
         setEvent(prevEvent => {
             if(prevEvent.totalSeats >= prevEvent.leftSeats) {
