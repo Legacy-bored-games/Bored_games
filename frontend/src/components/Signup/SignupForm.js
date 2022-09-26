@@ -94,7 +94,7 @@ export default function SignUp() {
                 </StyledButton>
                 <StyledButton
                   onClick={page === 0 ? nextStep : ()=>UserApi.signUp(formData).then(() => {
-                    navigate('/home' )
+                    navigate('/' )
                   })}
                   type={page === 0 ? "button" : "submit"}
                 >
