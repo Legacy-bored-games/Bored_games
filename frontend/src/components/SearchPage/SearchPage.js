@@ -7,6 +7,7 @@ import {
   StyledSearchPage,
   StyledSearchForm,
   StyledButton,
+  StyledEventContainer,
   StyledMapContainer,
 } from "../styles/SearchPage.styled";
 
@@ -22,20 +23,29 @@ function SearchPage({event, setEvent}) {
         <input></input>
         <input></input>
         <StyledButton>Submit</StyledButton> */}
+        
+      
+      </StyledSearchForm>
+      <StyledEventContainer>
         <EventCard event={event[0]} setEvent={setEvent}></EventCard>
         <EventCard event={event[1]} setEvent={setEvent}></EventCard>
         <EventCard event={event[2]} setEvent={setEvent}></EventCard>
-      
-      </StyledSearchForm>
-      
-      <h1>Find board game sessions near you</h1>
+      </StyledEventContainer>
         
-        
+      <StyledMapContainer>
+        <h1>Find board game sessions near you</h1> 
         <MapView />
-      
         <NavLink to="/session/host-new">
           <StyledButton>Host session</StyledButton>
         </NavLink>
+      </StyledMapContainer>
+      
+        
+        
+        
+      
+        
+        
     
     </StyledSearchPage>
   );
