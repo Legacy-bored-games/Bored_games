@@ -35,7 +35,7 @@ export const getEvent = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const event = await EventModel.findById(id).populate("boardGame").populate("user");
+        const event = await EventModel.findById(id).populate("boardGame").populate("creatorUser").populate("participantUser");
 
         res.status(200).json(event);
     } catch (error) {
@@ -53,6 +53,7 @@ export const createEvent = async (req, res) => {
         await newEvent.save();
 
         res.status(201).json(newEvent);
+        console.log(res);
     } catch (error) {
         res.status(409).json({ message: error.message });
     }

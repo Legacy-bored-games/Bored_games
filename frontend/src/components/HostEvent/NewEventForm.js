@@ -53,7 +53,7 @@ export default function Form() {
     howManyPlayers: 0,
     levelOfDifficulties: "",
     averageDuration: 0,
-    participantUser:[JSON.parse(localStorage.getItem('userId')).id],
+    participantUser: [JSON.parse(localStorage.getItem('userId')).id],
     creatorUser: JSON.parse(localStorage.getItem('userId')).id,
 
   });
@@ -77,8 +77,8 @@ export default function Form() {
     );
   });
 
- 
-//* for fill in the board game name and get the id from the API 
+
+  //* for fill in the board game name and get the id from the API 
   React.useEffect(() => {
     //  BoardGameApi.getBoardGames().then(res =>setFormData((prevData) => {
     //   return {
@@ -86,16 +86,17 @@ export default function Form() {
     //     boardGame: res.data,
     //   };
     // }))
-    BoardGameApi.getBoardGames().then(res =>setBoardGamecs(res.data))
- },[]);
+    BoardGameApi.getBoardGames().then(res => setBoardGamecs(res.data))
+  }, []);
 
-   console.log({boardGamecs})
-      
-// const boardGame =Object.values(formData.boardGame).map((boardGame) => {
-  const boardGame =boardGamecs.map((boardGame) => {
+
+
+  // const boardGame =Object.values(formData.boardGame).map((boardGame) => {
+  //* for fill in the board game name and get the id from the API  
+  const boardGame = boardGamecs.map((boardGame) => {
     return (
-      <MenuItem key={ boardGame._id}  value={ boardGame}>
-        { boardGame.name}
+      <MenuItem key={boardGame._id} value={boardGame}>
+        {boardGame.name}
       </MenuItem>
     );
   });
@@ -116,6 +117,15 @@ export default function Form() {
       );
     }
   );
+  //* for submit the form and redirect to the event page
+  async function submitAndNavigate() {
+    await EventApi.newEvent(formData).then((res) => {
+      navigate(`/session/${res._id}`)
+    })
+  }
+
+
+
 
   const theme = createTheme();
 
@@ -133,10 +143,10 @@ export default function Form() {
         >
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <Grid container spacing={2}>
-            <Grid item xs={12} sm={12}>
-              <StyledTitle>
-                Create Board Game session
-              </StyledTitle>
+              <Grid item xs={12} sm={12}>
+                <StyledTitle>
+                  Create Board Game session
+                </StyledTitle>
               </Grid >
               <Grid item xs={12} sm={12}>
                 {/* Select city from dropdown menu */}
@@ -233,9 +243,7 @@ export default function Form() {
                     {duration}
                   </Select>
                 </FormControl>
-                <StyledButton onClick={()=>EventApi.newEvent(formData).then(() => {
-                    navigate('/home' )
-                  })} type="submit">Submit</StyledButton>
+                <StyledButton onClick={submitAndNavigate} type="submit">Submit</StyledButton>
               </Grid>
             </Grid>
           </Box>
