@@ -74,9 +74,10 @@ export const getUsersBySearch = async (req, res) => {
 //* GET user by userId
 export const getUser = async (req, res) => {
   const { id } = req.params; 
+  console.log(id);
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Profile with id: ${id}`);
   try {
-      const user = await UserModel.findOne({userId: req.params.id});
+      const user = await UserModel.findById(req.params.id);
 
       res.status(200).json(user);
   } catch (error) {
