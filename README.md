@@ -25,6 +25,7 @@ This project is still ongoing. We plan to include the following features in the 
 - The ability to filter the results rendered on the map by applying a set of filters (location, preferred board game, number of players, average duration of play etc)
 - The ability to update and/or cancel a board game session that has been created
 - The option of signing up/logging in with Google
+- Conditional rendering of components depending on whether the user has logged in or not
 
 
 ## Installation
