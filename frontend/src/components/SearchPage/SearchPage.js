@@ -1,7 +1,7 @@
 //React Components
 import Map from "./Map";
 import EventCard from "../EventCard";
-
+import MapView from './map/MapView';
 //Styled Components
 import {
   StyledSearchPage,
@@ -26,13 +26,13 @@ function SearchPage({event, setEvent}) {
         <EventCard event={event} setEvent={setEvent}></EventCard>
         <EventCard event={event} setEvent={setEvent}></EventCard>
       </StyledSearchForm>
-      <StyledMapContainer>
+      
         <h1>Find board game sessions near you</h1>
-        {<Map />}
+        <MapView />
         <NavLink to="/session/host-new">
           <StyledButton>Host session</StyledButton>
         </NavLink>
-      </StyledMapContainer>
+    
     </StyledSearchPage>
   );
 }
