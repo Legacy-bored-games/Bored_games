@@ -26,6 +26,7 @@ This project is still ongoing. We plan to include the following features in the 
 - The ability to update and/or cancel a board game session that has been created
 - The option of signing up/logging in with Google
 - Conditional rendering of components depending on whether the user has logged in or not
+- Improve UX (let user know if a form has been submitted successfully or not)
 
 
 ## Installation
