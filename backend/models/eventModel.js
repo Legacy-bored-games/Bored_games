@@ -24,7 +24,11 @@ const eventSchema = mongoose.Schema({
         type: String,
 
     },
-    user: {
+    participantUser: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
+    creatorUser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },

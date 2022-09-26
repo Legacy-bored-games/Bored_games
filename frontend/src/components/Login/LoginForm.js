@@ -27,7 +27,7 @@ export default function Login() {
       'email': data.get('email'),
       'password': data.get('password'),
     }).then(() => {
-      navigate('/profile/' )
+      navigate(`/profile/${JSON.parse(localStorage.getItem('userId')).id}` )
     })
   };
 
