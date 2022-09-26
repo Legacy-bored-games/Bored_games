@@ -53,7 +53,9 @@ export default function Form() {
     howManyPlayers: 0,
     levelOfDifficulties: "",
     averageDuration: 0,
-    user:JSON.parse(localStorage.getItem('userId')).id,
+    participantUser:[JSON.parse(localStorage.getItem('userId')).id],
+    creatorUser: JSON.parse(localStorage.getItem('userId')).id,
+
   });
 
   //Handle change of multiple inputs

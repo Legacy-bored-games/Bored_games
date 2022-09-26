@@ -61,11 +61,11 @@ export const createEvent = async (req, res) => {
 //* update event
 export const updateEvent = async (req, res) => {
     const { id } = req.params;
-    const { where, when, boardGame, howManyPlayers, levelOfDifficulties, averageDuration, user } = req.body;
+    const { where, when, boardGame, howManyPlayers, levelOfDifficulties, averageDuration, participantUser, creatorUser } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Event with id: ${id}`);
 
-    const updatedEvent = { where, when, boardGame, howManyPlayers, levelOfDifficulties, averageDuration, user, _id: id };
+    const updatedEvent = { where, when, boardGame, howManyPlayers, levelOfDifficulties, averageDuration, participantUser, creatorUser, _id: id };
 
     await EventModel.findByIdAndUpdate(id, updatedEvent, { new: true });
 
