@@ -1,3 +1,5 @@
+import React from "react";
+
 //React Router
 import { useParams } from "react-router-dom";
 
@@ -9,12 +11,40 @@ import {
   StyledAdditionalInfoContainer,
   StyledFavBoardGames,
   StyledUpcomingSessions,
-  StyledEventCardContainer
+  StyledEventCardContainer,
 } from "../styles/UserProfile.styled";
 
+//API Calls
+import { UserApi } from "../../api/index";
+
 function UserProfile() {
-  let { userId } = useParams();
-  console.log(userId);
+  const [user, setUser] = React.useState({
+    userId: useParams().id,
+  });
+
+  //Handle side effect from Api call with Effect hook
+  React.useEffect(() => {
+        renderUser();
+      }, [])
+
+
+  //Render user information according to the data the user submitted when signing up
+  async function renderUser() {
+    const userObj = await UserApi.getUser(user.userId);
+    setUser((prevUser) => {
+      return {
+        ...prevUser,
+        firstName: userObj.firstName,
+        lastName: userObj.lastName,
+        age: 20, //Hardcoded for now
+        city: userObj.city,
+        country: userObj.country,
+        favBoardGame: userObj.favBoardGame,
+      };
+    });
+  }
+
+
   return (
     <StyledUserProfile>
       <StyledUserInfoContainer>
@@ -30,17 +60,20 @@ function UserProfile() {
           }}
         ></i>
         <StyledUserInfo>
-            <h1>Name, Age</h1>
-            <h2>City, Country</h2>
+          <h1>
+            {user.firstName} {user.lastName}, {user.age}
+          </h1>
+          <h2>
+            {user.city}, {user.country}
+          </h2>
         </StyledUserInfo>
       </StyledUserInfoContainer>
       <StyledAdditionalInfoContainer>
         <StyledFavBoardGames>
-            <h3>My favourite board games:</h3> 
-            <ul>
-                <li>Monopoly</li>
-                <li>Munchkin</li>
-            </ul>
+          <h3>My favourite board games:</h3>
+          <ul>
+            <li>{user.favBoardGame}</li>
+          </ul>
         </StyledFavBoardGames>
         <StyledUpcomingSessions>
           <h3>Upcoming Sessions</h3>
@@ -50,7 +83,6 @@ function UserProfile() {
             <p>Event 3</p>
           </StyledEventCardContainer>
         </StyledUpcomingSessions>
-
       </StyledAdditionalInfoContainer>
     </StyledUserProfile>
   );
