@@ -175,7 +175,7 @@ export default function Form() {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <InputLabel>How many players?</InputLabel>
+                <InputLabel>How many players? (2 to 30 players) </InputLabel>
                 <TextField
                   fullWidth
                   id='numOfPlayers'

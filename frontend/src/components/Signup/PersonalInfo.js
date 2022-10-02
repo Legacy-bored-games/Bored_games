@@ -20,10 +20,17 @@ export default function PersonalInfo({ formData, setFormData }) {
     })
   }
 
-  //!Xenia: for documents
-  const handleChangePicture = (event) => {
-    console.log(event.target.files[0])
-  }
+  //!Xenia: for ID documents (upload images)
+
+  // const onChangeFile = (event) => {
+  //   setFormData((prevData) => {
+  //     return {
+  //       ...prevData,
+  //       validationId: event.target.files[0],
+  //     }
+  //   })
+  // }
+
   //Multiple selection not yet working
 
   //   function handleMultiSelect(e) {

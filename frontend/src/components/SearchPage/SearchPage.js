@@ -1,3 +1,4 @@
+import React from 'react'
 //React Components
 import EventCard from '../EventCard'
 import MapView from './map/MapView'
@@ -10,10 +11,27 @@ import {
   StyledMapContainer,
 } from '../styles/SearchPage.styled'
 
+import { EventApi } from '../../api/index'
+
 //ReactRouter
 import { NavLink } from 'react-router-dom'
 
 function SearchPage({ event, setEvent }) {
+  //!Xenia: fetch data with events from db
+  React.useEffect(() => {
+    renderEvent()
+  }, [])
+
+  //Render user information according to the data the user submitted when signing up
+  async function renderEvent() {
+    const eventObj = await EventApi.getEvents().then((res) => {
+      console.log(res.data)
+      setEvent(res.data)
+    })
+  }
+
+  console.log(event)
+
   return (
     <StyledSearchPage>
       <StyledSearchForm>

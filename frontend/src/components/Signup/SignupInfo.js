@@ -1,32 +1,31 @@
-import * as React from "react";
+import * as React from 'react'
 
 //MUI Library
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
 
-export default function SignUpInfo({formData, setFormData}) {
-
+export default function SignUpInfo({ formData, setFormData }) {
   //Handle change of multiple inputs
   function handleChange(e) {
     setFormData((prevData) => {
       return {
         ...prevData,
         [e.target.name]: e.target.value,
-      };
-    });
+      }
+    })
   }
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6}>
         <TextField
-          autoComplete="given-name"
-          name="firstName"
+          autoComplete='given-name'
+          name='firstName'
           value={formData.firstName}
           required
           fullWidth
-          id="firstName"
-          label="First Name"
+          id='firstName'
+          label='First Name'
           autoFocus
           onChange={handleChange}
         />
@@ -35,11 +34,11 @@ export default function SignUpInfo({formData, setFormData}) {
         <TextField
           required
           fullWidth
-          id="lastName"
-          label="Last Name"
-          name="lastName"
+          id='lastName'
+          label='Last Name'
+          name='lastName'
           value={formData.lastName}
-          autoComplete="family-name"
+          autoComplete='family-name'
           onChange={handleChange}
         />
       </Grid>
@@ -47,11 +46,11 @@ export default function SignUpInfo({formData, setFormData}) {
         <TextField
           required
           fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
+          id='email'
+          label='Email Address'
+          name='email'
           value={formData.email}
-          autoComplete="email"
+          autoComplete='email'
           onChange={handleChange}
         />
       </Grid>
@@ -59,12 +58,12 @@ export default function SignUpInfo({formData, setFormData}) {
         <TextField
           required
           fullWidth
-          name="password"
+          name='password'
           value={formData.password}
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="new-password"
+          label='Password'
+          type='password'
+          id='password'
+          autoComplete='new-password'
           onChange={handleChange}
         />
       </Grid>
@@ -72,16 +71,16 @@ export default function SignUpInfo({formData, setFormData}) {
         <TextField
           required
           fullWidth
-          id="confirmPassword"
-          label="Confirm Password"
-          type="password"
-          name="confirmPassword"
+          id='confirmPassword'
+          label='Confirm Password'
+          type='password'
+          name='confirmPassword'
           value={formData.confirmPassword}
-          autoComplete="confirm-password"
+          autoComplete='confirm-password'
           onChange={handleChange}
         />
       </Grid>
       <Grid item xs={12}></Grid>
     </Grid>
-  );
+  )
 }
