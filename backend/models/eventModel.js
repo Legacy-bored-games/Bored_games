@@ -1,38 +1,39 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const eventSchema = mongoose.Schema({
-   
-    where: {
-        type: String,
-        required: true
+  where: {
+    type: String,
+    required: true,
+  },
+  when: {
+    type: Date,
+    required: true,
+  },
+  boardGame: {
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: 'boardGame'
+    type: String,
+    required: true,
+  },
+  howManyPlayers: {
+    type: Number,
+  },
+  levelOfDifficulties: {
+    type: String,
+  },
+  averageDuration: {
+    type: String,
+  },
+  participantUser: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user',
     },
-    when: {
-        type: Date,
-        required: true
-    },
-    boardGame: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'boardGame'
-    },
-    howManyPlayers: {
-        type: Number
-    },
-    levelOfDifficulties: {
-        type: String
-    },
-    averageDuration: {
-        type: String,
+  ],
+  creatorUser: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+  },
+})
 
-    },
-    participantUser: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
-    }],
-    creatorUser: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
-    },
-     
-});
-
-export default mongoose.model('event', eventSchema);
+export default mongoose.model('event', eventSchema)

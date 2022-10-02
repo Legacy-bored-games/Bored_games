@@ -1,54 +1,58 @@
-import React from "react";
+import React from 'react'
 
 //Styled Components
-import { StyledDropdownMenu, StyledList, StyledListItem } from "./styles/DropdownMenu.styled";
+import {
+  StyledDropdownMenu,
+  StyledList,
+  StyledListItem,
+} from './styles/DropdownMenu.styled'
 
 //ReactRouter
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 
-function DropdownMenu(items, multiSelect = false) {
+function DropdownMenu({ setIsOpen }) {
 
-    //Close menu when menu item is clicked
-    // const [isOpen, setIsOpen] = React.useState(false);
+	 //!Xenia: user can close drop down menu when is clicked outside menu
+  let menuRef = useRef()
+ 
+  useEffect(() => {
+    let handler = (event) => {
+      if (!menuRef.current.contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => {
+      document.removeEventListener('mousedown', handler)
+    }
+  }, [])
 
-    // function toggleMenu() {
-    //     setIsOpen(prevIsOpen => !prevIsOpen)
-    // };
 
-    // function closeMenu() {
-    //     setIsOpen(false)
-    // };
-
-    return (
-        <StyledDropdownMenu>
-            <StyledList>
-                <NavLink
-                    to="/signup"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                >
-                    <StyledListItem>
-                        Sign up
-                    </StyledListItem>
-                </NavLink>
-                <NavLink
-                    to="/login"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                >
-                    <StyledListItem>
-                        Login
-                    </StyledListItem>
-                </NavLink>
-                <NavLink
-                    to="/session/host-new"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                >
-                    <StyledListItem>
-                        Host board game session
-                    </StyledListItem>
-                </NavLink>
-            </StyledList>
-        </StyledDropdownMenu>
-    )
+  return (
+    <StyledDropdownMenu ref={menuRef}>
+      <StyledList>
+        <NavLink
+          to='/signup'
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <StyledListItem>Sign up</StyledListItem>
+        </NavLink>
+        <NavLink
+          to='/login'
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <StyledListItem>Login</StyledListItem>
+        </NavLink>
+        <NavLink
+          to='/session/host-new'
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <StyledListItem>Host board game session</StyledListItem>
+        </NavLink>
+      </StyledList>
+    </StyledDropdownMenu>
+  )
 }
 
-export default DropdownMenu;
+export default DropdownMenu

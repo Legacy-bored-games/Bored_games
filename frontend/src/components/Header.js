@@ -68,7 +68,7 @@ function Header() {
           }}
           onClick={toggleMenu}
         ></i>
-        {isOpen && <DropdownMenu />}
+        {isOpen && <DropdownMenu setIsOpen = {setIsOpen}/>}
       </nav>
     </StyledHeader>
   );

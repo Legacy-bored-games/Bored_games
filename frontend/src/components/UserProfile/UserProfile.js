@@ -1,7 +1,6 @@
-import React from "react";
-
+import React from 'react'
 //React Router
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom'
 
 //Styled Components
 import {
@@ -13,36 +12,48 @@ import {
   StyledFavBoardGames,
   StyledUpcomingSessions,
   StyledEventCardContainer,
-} from "../styles/UserProfile.styled";
+} from '../styles/UserProfile.styled'
 
 //API Calls
-import { UserApi } from "../../api/index";
+import { UserApi } from '../../api/index'
 //*Event Card
-import EventCard from "../EventCard";
+import EventCard from '../EventCard'
 function UserProfile({ event, setEvent }) {
   const [user, setUser] = React.useState({
     userId: useParams().id,
-  });
+  })
 
   //Handle side effect from Api call with Effect hook
   React.useEffect(() => {
-    renderUser();
-  }, []);
+    renderUser()
+  }, [])
 
   //Render user information according to the data the user submitted when signing up
   async function renderUser() {
-    const userObj = await UserApi.getUser(user.userId);
+    const userObj = await UserApi.getUser(user.userId)
     setUser((prevUser) => {
       return {
         ...prevUser,
         firstName: userObj.firstName,
         lastName: userObj.lastName,
-        age: 20, //Hardcoded for now
+        age: userObj.dateOfBirth,
         city: userObj.city,
         country: userObj.country,
         favBoardGame: userObj.favBoardGame,
-      };
-    });
+      }
+    })
+  }
+
+  //!Xenia: function that convert date of birth to age
+  function getAge(dateString) {
+    var today = new Date()
+    var birthDate = new Date(dateString)
+    var age = today.getFullYear() - birthDate.getFullYear()
+    var m = today.getMonth() - birthDate.getMonth()
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    }
+    return age
   }
 
   return (
@@ -50,22 +61,24 @@ function UserProfile({ event, setEvent }) {
       <StyledUserInfoContainer>
         <StyledBasicInfo>
           <i
-            class="fa-solid fa-user"
+            class='fa-solid fa-user'
             style={{
-              fontSize: "3.5em",
-              background: "none",
-              border: ".1em solid black",
-              borderRadius: "15em",
-              padding: ".5em",
-              cursor: "pointer",
+              fontSize: '3.5em',
+              background: 'none',
+              border: '.1em solid black',
+              borderRadius: '15em',
+              padding: '.5em',
+              cursor: 'pointer',
             }}
           ></i>
           <StyledUserInfo>
-            <h1>
-              {user.firstName} {user.lastName}, {user.age}
-            </h1>
+            <h1>Account info:</h1>
+            <br />
+            <h2>Name: {user.firstName} </h2>
+            <h2>Surname: {user.lastName}</h2>
+            <h2>Age: {getAge(user.age)} years</h2>
             <h2>
-              {user.city}, {user.country}
+              Location: {user.city}, {user.country}
             </h2>
           </StyledUserInfo>
         </StyledBasicInfo>
@@ -87,7 +100,7 @@ function UserProfile({ event, setEvent }) {
         </StyledEventCardContainer>
       </StyledUpcomingSessions>
     </StyledUserProfile>
-  );
+  )
 }
 
-export default UserProfile;
+export default UserProfile
