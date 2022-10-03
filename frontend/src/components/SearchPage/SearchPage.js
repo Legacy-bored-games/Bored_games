@@ -11,7 +11,7 @@ import {
   StyledMapContainer,
 } from '../styles/SearchPage.styled'
 
-import { EventApi } from '../../api/index'
+import { EventApi } from '../../api/index.js'
 
 //ReactRouter
 import { NavLink } from 'react-router-dom'
@@ -19,18 +19,17 @@ import { NavLink } from 'react-router-dom'
 function SearchPage({ event, setEvent }) {
   //!Xenia: fetch data with events from db
   React.useEffect(() => {
+    console.log('ddddd')
     renderEvent()
   }, [])
 
   //Render user information according to the data the user submitted when signing up
   async function renderEvent() {
-    const eventObj = await EventApi.getEvents().then((res) => {
-      console.log(res.data)
+    await EventApi.getEvents().then((res) => {
       setEvent(res.data)
     })
   }
-
-  console.log(event)
+ 
 
   return (
     <StyledSearchPage>
@@ -42,14 +41,17 @@ function SearchPage({ event, setEvent }) {
         <StyledButton>Submit</StyledButton> */}
       </StyledSearchForm>
       <StyledEventContainer>
-        <EventCard event={event[0]} setEvent={setEvent}></EventCard>
+        {event &&
+          event.map((ev) => <EventCard id={ev._id} event={ev} key={ev._id} />)}
+
+        {/* <EventCard event={event[0]} setEvent={setEvent}></EventCard>
         <EventCard event={event[1]} setEvent={setEvent}></EventCard>
-        <EventCard event={event[2]} setEvent={setEvent}></EventCard>
+        <EventCard event={event[2]} setEvent={setEvent}></EventCard> */}
       </StyledEventContainer>
 
       <StyledMapContainer>
         <h1>Find board game sessions near you</h1>
-        <MapView />
+        <MapView event={event} />
         <NavLink to='/session/host-new'>
           <StyledButton>Host session</StyledButton>
         </NavLink>
