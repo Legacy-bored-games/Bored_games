@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import multer from 'multer'
+import path from 'path'
 
 //!Xenia: to save images
 const storage = multer.diskStorage({
@@ -56,3 +57,10 @@ app.use('/test', (req, res) => {
   res.send('----RUNING Server-----')
   console.log(req)
 })
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
